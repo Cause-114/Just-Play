@@ -1,2 +1,1 @@
-# this is just a play 
-***hello world!***
+# 一个简单的网页投票程序

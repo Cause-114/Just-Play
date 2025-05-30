@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Welcome to my website</title>
+    <script>function myFuction() {
+            var elem = document.getElementById("label");
+            if (elem.innerHTML == "你好！IKUN") {
+                elem.innerHTML = "小黑子露出鸡脚了吧";
+                elem = document.getElementById("myButton");
+                elem.innerHTML = "点我隐藏鸡脚";
+            } else {
+                elem.innerHTML = "你好！IKUN";
+                elem = document.getElementById("myButton");
+                elem.innerHTML = "点我露出鸡脚";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1 id="label" align="center"> 你好！IKUN</h2>
+    <a href="https://www.bilibili.com/video/BV1oN4y1u723" target="_blank">Ikun 必备技能</a>
+    <button id="myButton" type="button" onclick="myFuction()">点我露出鸡脚</button>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>
+                <h1>{{ question.question_text }}</h1>
+            </legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Vote">
+    </form>
+</body>
+
+</html>
